@@ -1,0 +1,150 @@
+body
+{
+	background-color: #2F3336;
+	color: #efefef;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 17px;
+}
+
+h1
+{
+	font-size: 36px;
+	font-weight: 400;
+	color: #C0D06F;
+	margin: 20px;
+}
+
+h3 {
+    font-size: 17px;
+    font-weight: 400;
+    color: #C0D06F;
+    margin: 20px;
+}
+
+.jumpers
+{
+	text-align: center;
+}
+
+.jumpers img
+{
+	width: 100%;
+	height: auto;
+}
+
+.jumpers p
+{
+	margin-bottom: 30px;
+}
+
+.jumpers figcaption
+{
+	margin-top: 8px;
+}
+
+.jumpers figure
+{
+        margin: 10px;
+}
+
+.navbar-nav li:hover>.dropdown-menu
+{
+	display: block;
+}
+
+.navbar
+{
+	min-height: 57px;
+}
+
+.bg-jumpers
+{
+	background-color: #91a33b !important;
+}
+
+.bg-ppo {
+    font-size: 36px;
+    font-weight: 400;
+    color: #C0D06F;
+    margin: 20px;
+    
+}
+/*////////////////*/
+
+/*html, body {
+    height: 100%;
+    margin: 0;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(149,199,20,1) 0%, rgba(0,212,255,1) 96%);
+}*/
+
+.myForm {
+    background-color: rgba(0,0,0,0.5) !important;
+    padding: 15px !important;
+    border-radius: 15px !important;
+    color: white;
+}
+
+/*input {
+    border-radius: 0 15px 15px 0 !important;
+}*/
+
+    input:focus {
+        outline: none;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+    }
+
+.br-15 {
+    border-radius: 15px 0 0 15px !important;
+}
+
+#add_more {
+    color: white !important;
+    background-color: #fa8231 !important;
+    border-radius: 15px !important;
+    border: 0 !important;
+}
+
+#remove_more {
+    color: white !important;
+    background-color: #fc5c65 !important;
+    border-radius: 15px !important;
+    border: 0 !important;
+    display: none;
+}
+
+.submit_btn {
+    border-radius: 15px !important;
+    background-color: #95c714 !important;
+    border: 0 !important;
+}
+.dropdown-submenu {
+    position: relative;
+}
+
+    .dropdown-submenu .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -1px;
+    }
+navbar-light .navbar-nav .nav-link {
+    color: rgb(64, 64, 64);
+}
+
+.btco-menu li > a {
+    padding: 10px 15px;
+    color: #000;
+}
+
+.btco-menu .active a:focus,
+.btco-menu li a:focus,
+.navbar > .show > a:focus {
+    background: transparent;
+    outline: 0;
+}
+
+.dropdown-menu .show > .dropdown-toggle::after {
+    transform: rotate(-90deg);
+}
+    

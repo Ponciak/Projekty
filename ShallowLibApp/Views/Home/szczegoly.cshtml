@@ -1,0 +1,66 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@model LibraryViewModel
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+@foreach (var library in Model.Items)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <figure>
+                    <a><img src="@library.BlobID" class="img-fluid"></a>
+                </figure>
+            </div>
+            <div class="myForm col-sm-4" >
+                <div style="margin:auto;color:#C0D06F;font-size:36px"> @library.Title </div>
+                <div style="font-family:inherit;font-weight:500;color:#C0D06F ;margin:0px 0px 80px 0px"> @library.AutorName</div>
+                <div style="margin:0px 0px 50px 0px">
+                    @if (library.State == true)
+                    {
+                        @if (SignInManager.UserManager.GetUserAsync(User).Result.Id == library.Renter)
+                        {
+                            <div class="badge badge-pill badge-danger" style="margin:10px;font-size:25px"><b>Jest u Ciebie  </b> </div>
+                            <div style="margin:0px 0px 0px 0px ;font-size:20px;color:darkgrey">Data zwrotu</div>
+                            <div class="text-danger" style=" font-size:25px"><b>@library.DateRent.Value.AddDays(14).ToString().Remove(11)</b></div>
+                            <div style="color:darkgrey"> wypożyczono dnia <p> @library.DateRent.ToString().Remove(16)</div>
+                        }
+                        else
+                        { <div class="badge badge-pill badge-danger" style="margin:10px;font-size:25px"><b>Tytuł wypożyczony </b> </div>
+                            <div style="color:darkgrey">w dniu @library.DateRent.ToString().Remove(16)</div>
+                            <div style="margin:0px 0px 0px 0px ;font-size:20px;color:darkgrey">Data zwrotu</div>
+                            <div class="text-danger" style=" font-size:25px"><b>@library.DateRent.Value.AddDays(14).ToString().Remove(11)</b></div>
+                            <a asp-action="Index" class="btn btn-success"> Powrót</a>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-success" style="margin:10px;font-size:28px"><b>Tytuł dostępny</b> </div>
+                    }
+                </div>
+                <div>
+                    @if (library.State == false)
+                    {
+                        <a asp-controller="Home" asp-action="wypozycz" asp-route-id=@library.ID class="btn btn-success"> Wypożycz</a>
+                        <a asp-action="Index" class="btn btn-success"> Powrót</a>
+                        <a asp-controller="Home" asp-action="EditMedia" asp-route-id=@library.ID class="btn btn-primary pull-right"> Edycja </a>
+                        <a asp-controller="Home" asp-action="Delete" asp-route-id=@library.ID class="btn btn-danger">Usuń</a>
+                    }
+                    else
+                    {
+                        @if (SignInManager.UserManager.GetUserAsync(User).Result.Id == library.Renter)
+                        {
+                            <a asp-action="zwroc" asp-route-id=@library.ID class="btn btn-danger"> Zwróć </a>
+                            <a asp-action="Index" class="btn btn-success"> Powrót</a>
+                        }
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

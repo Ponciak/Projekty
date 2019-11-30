@@ -1,0 +1,30 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@model LibraryViewModel
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+@foreach (var library in Model.Items)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <figure>
+                    <a><img src="@library.BlobID" class="img-fluid"></a>
+                </figure>
+            </div>
+            <div class="myForm col-sm-4" style="margin:0px 0px 30px 0px">
+                <div style="margin:auto;color:#C0D06F;font-size:36px"> @library.Title </div>
+                <div style="font-family:inherit;font-weight:500;color:#C0D06F ;margin:0px 0px 80px 0px"> @library.AutorName</div>
+                <div style="margin:0px 0px 50px 0px">
+                <div class="badge badge-pill badge-danger" style="margin:10px;font-size:25px"><b>Dziekujemy za zwrot</b> </div>
+                </div>
+                <div>
+                <a asp-action="Index" class="btn btn-success"> Powrót</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

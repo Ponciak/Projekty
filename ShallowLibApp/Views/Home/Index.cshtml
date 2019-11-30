@@ -1,0 +1,56 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@model LibraryViewModel
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+@{
+    ViewData["Title"] = "Home";
+}
+
+@foreach (var library in Model.Items)
+{
+    @if (SignInManager.IsSignedIn(User))
+    {
+        
+        <div class="col-sm-6 col-md-4 ">
+            <figure>
+                <a asp-area="" asp-controller="Home" asp-action="szczegoly" asp-route-id=@library.ID><img class="img-fluid" src="@library.BlobID"></a>
+                <figcaption>@library.Title</figcaption>
+                @if (library.State == false)
+                {
+                    <div class="badge badge-pill badge-success" style="font-size:15px"><b>Tytuł dostępny</b> </div>
+                }
+                else
+                {
+                    <div class="badge badge-pill badge-danger" style="font-size:15px"><b>Tytuł wypożyczony </b> </div>
+                }
+                <div class="text-info">@library.TypeofMedia</div>
+            </figure>
+        </div>
+    }
+    else
+    {
+
+        <div class="col-sm-6 col-md-4 ">
+            <figure>
+                <a asp-area="" asp-controller="Home" asp-action="szczegoly" asp-route-id=@library.ID><img class="img-fluid" src="@library.BlobID"></a>
+                <figcaption>@library.Title</figcaption>
+                @if (library.State == false)
+                {
+                    <div class="badge badge-pill badge-success" style="font-size:15px"><b>Tytuł dostępny</b> </div>
+                }
+                else
+                {
+                    <div class="badge badge-pill badge-danger" style="font-size:15px"><b>Tytuł wypożyczony </b> </div>
+                }
+                <div class="text-info">@library.TypeofMedia</div>
+            </figure>
+        </div>
+    }
+}
+
+

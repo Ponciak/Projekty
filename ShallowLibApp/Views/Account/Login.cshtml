@@ -1,0 +1,57 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model LoginViewModel
+@*@{
+    ViewData["Title"] = "";
+    
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>*@
+<div class="row text-center mr-auto"  >
+
+</div>
+
+
+<div class="row text-center mr-auto">
+    <div class="bca_login text-center">
+        <section>
+            <form asp-action="Login" asp-controller="Account"  method="post">
+                <h4>Please sign in </h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="RememberMe">
+                            <input asp-for="RememberMe" />
+                            @Html.DisplayNameFor(m => m.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary my-2">Sign in</button>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <a asp-action="Register" asp-controller="Account"  >Register as a new user?</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

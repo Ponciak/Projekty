@@ -1,0 +1,165 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@*@model LibraryViewModel*@
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+
+
+<!DOCTYPE html>
+<html lang="en"  >
+<head>
+
+    <meta charset="utf-8">       
+    <meta http-equiv="X-Ua-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ShallowLib</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/main.css" />
+</head>
+
+<body class="" data-gr-c-s-loaded="true"> 
+    <header>
+        <nav class="navbar navbar-dark bg-jumpers navbar-expand-lg">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu" aria-controls="mainmenu" aria-expanded="false" aria-label="Przełącznik nawigacji">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainmenu">
+
+                <ul class="navbar-nav mr-1 multi-level mr-auto ">
+
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"> Home </a>
+                    </li>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Type of media</a>
+                            <ul class="dropdown-menu bg-jumpers" aria-labelledby="navbarDropdownMenuLink">
+                                <li>
+                                    <a class="dropdown-item dropdown-toggle" asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="ALL">ALL</a>
+                                    <ul class="dropdown-menu " style="top:0px;left:80px">
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="MediaTypeStat" asp-route-id="ALL,false">Dostępne</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="MediaTypeStat" asp-route-id="ALL,true">Wypożyczone</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item dropdown-toggle" asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="DVD">DVD</a>
+                                    <ul class="dropdown-menu " style="top:35px;left:80px">
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="MediaTypeStat" asp-route-id="DVD,false">Dostępne</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="MediaTypeStat" asp-route-id="DVD,true">Wypożyczone</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item dropdown-toggle" asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="CD">CD</a>
+                                    <ul class="dropdown-menu " style="top:70px;left:80px">
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="MediaTypeStat" asp-route-id="CD,false" >Dostępne</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="MediaTypeStat" asp-route-id="CD,true">Wypożyczone</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item dropdown-toggle" asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="Book">Book</a>
+                                    <ul class="dropdown-menu " style="top:100px;left:80px">
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="MediaTypeStat" asp-route-id="Book,false">Dostępne</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="MediaTypeStat" asp-route-id="Book,true">Wypożyczone</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="UploadAsync">Dodaj Nowy Tytuł </a>
+                        </li>
+                        <li  class="nav-item">
+                            <a class="nav-link"  asp-area="" asp-controller="Home" asp-action="Myrent" >Moje wypożyczone</a>
+                        </li>
+                        <div>
+                            <form>
+                                <input class="form-control mr-sm-2 " name="searchString" type="search" placeholder="Wyszukaj" aria-label="Wyszukaj ">
+                            </form>
+                        </div>
+                    }
+                </ul>
+                             
+                <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
+                    <button class="btn btn-light" type="submit">Sign out</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <main role="main">
+        <section class="jumpers">
+            <div class="container">
+                <header>
+                    <h1>Welcome into ShallowLIB</h1>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                      <h2><strong> @SignInManager.UserManager.GetUserAsync(User).Result.FirstName
+                                   @SignInManager.UserManager.GetUserAsync(User).Result.LastName </strong></h2>                        
+                                   <p> The best library of the World!.</p>
+                    }                    
+                </header>
+                <div class="row">                    
+                        @RenderBody()                    
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <div class="row">
+                &copy; 2019 - ShallowLib by Janusze GbmH - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>            
+        </div>
+    </footer>
+
+    <script>
+
+        $(document).ready(function () {
+            $('.dropdown').on('click', function (e) {
+                var $el = $(this);
+                var $parent = $(this).offsetParent(".dropdown-menu");
+                if (!$(this).next().hasClass('show')) {
+                    $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+                }
+                var $subMenu = $(this).next(".dropdown-menu");
+                $subMenu.toggleClass('show');
+
+                $(this).parent("li").toggleClass('show');
+
+                $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
+                    $('.dropdown-menu .show').removeClass("show");
+                });
+                if (!$parent.parent().hasClass('navbar-nav')) {
+                    $el.next().css({ "top": $el[0].offsetTop, "left": $parent.outerWidth() - 4 });
+                }
+                return false;
+            });
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/umd/popper.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+</html>

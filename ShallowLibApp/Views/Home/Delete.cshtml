@@ -1,0 +1,35 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@model LibraryViewModel
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+@foreach (var library in Model.Items)
+{
+    <div class="row text-center mr-auto"></div>
+    <div class="col-md-5" style="margin:0px 0px 30px 0px"><a><img src="@library.BlobID" height="800" width="500"></a> </div>
+    <div class="myForm" style="margin:0px 0px 30px 0px">
+        <div style="margin:auto;color:#C0D06F;font-size:36px"> @library.Title </div>
+        <div style="font-family:inherit;font-weight:500;color:#C0D06F ;margin:0px 0px 80px 0px"> @library.AutorName</div>
+        <div style="margin:0px 0px 50px 0px">
+            
+                <div class="text-success" style="margin:10px;font-size:10px"><b>Czy napewno chcesz usunąć tytuł</b> </div>
+            
+        </div>
+        <div>
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+            <form asp-action="Delete">
+
+                <input type="submit" value="Usuń" class="btn btn-danger" style="margin-top:30px" />
+                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary"> Powrót </a>
+            </form>
+                
+            }
+        </div>
+    </div>
+    <div class="row text-center mr-auto" style=" margin:0px 0px 0px 0px"></div>
+}

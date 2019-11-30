@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@model LibraryViewModel
+
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@*<h2> Dodaj nowy tytuł</h2>
+    <hr />*@
+
+<div class="container">
+    <div class="row">
+        <div class="myForm">
+            <form asp-action="DodajAutora">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-md-3">                   
+                    <div class="form-group">
+                            <label asp-for="Items2.AutorName" class="custom-control">Autor</label>
+                            <input asp-for="Items2.AutorName" class="from-control" />
+                            <span asp-validation-for="Items2.AutorName" class="text-danger"></span>
+                     </div>          
+                </div>
+                <div *ngIf="editform.dirty" class="from-control">
+                    <input type="submit" value="Dodaj" class="btn btn-success" style="margin-top:30px" />
+                    <a asp-action="Index" class="btn btn-danger pull-right" style="margin-top:30px">Powrót</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@model LibraryViewModel
+
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <form method="post" enctype="multipart/form-data" asp-action="UploadFile">
+                <div class="myForm form-group">
+                    @*<input type="hidden" asp-for="Items2.ID">*@
+                    <label class="from-control">Zdjęcie Tytułu </label><br />
+                    <img class="img-fluid" src="@ViewBag.ImgPath" /><br />
+                    <input type="file" name="file" style="margin-top:10px" />
+                    <input type="submit" value="Zaladuj zdjecie" class="btn btn-primary " />
+                </div>
+            </form>
+        </div>
+        <div class="myForm">
+            <form asp-action="CreateMedia">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label asp-for="Items2.Title" class="custom-control">Tytuł</label>
+                        <input asp-for="Items2.Title" class="from-control" />
+                        <span asp-validation-for="Items2.Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Items2.AutorId" class="custom-control">Autor</label>
+                        <select asp-for="Items2.AutorId" class="form-control"
+                                asp-Items="@(new SelectList(Model.Iauthors.GroupBy(x=>new { x.Name,x.ID}).OrderBy(x => x.Key.Name).Select(x=>x.Key) ,"ID","Name"))"></select>
+
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Items2.Year" class="custom-control">Rok</label>
+                        <input asp-for="Items2.Year" class="from-control" />
+                        <span asp-validation-for="Items2.Year" class="text-danger"></span>
+                    </div>                   
+                    <div class="form-group">
+                        <label asp-for="Items2.TypeofMedia" class="custom-control">Typ nośnika</label>
+                        <select asp-for="Items2.TypeofMedia" class="form-control"
+                                asp-Items="@(new SelectList(Model.Items.GroupBy(x=> new { x.TypeofMedia}).OrderBy(x=>x.Key.TypeofMedia).Select(x=>x.Key) ,"TypeofMedia","TypeofMedia"))"></select>
+                    </div>                   
+                    <input type="hidden" asp-for="Items2.BlobID" value="@ViewBag.ImgPath" class="from-control" />
+
+                </div>
+                <div *ngIf="editform.dirty" class="from-control">
+                    <input type="submit" value="Dodaj" class="btn btn-success" style="margin-top:30px" />
+                    <a asp-action="Index" class="btn btn-danger pull-right" style="margin-top:30px">Powrót</a>
+                    <a asp-action="DodajAutora" class="btn btn-primary pull-right" style="margin-top:30px">DodajAutora</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class=" row text-center mr-auto" style=" margin:0px 0px 0px 0px">
+</div>

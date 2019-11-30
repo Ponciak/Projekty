@@ -1,0 +1,33 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@using AuthDatabase.Entities;
+@model ShallowLibApp.Models.LibraryViewModel
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @foreach (var library in Model.Items)
+    {
+        <div class="col-sm-4 col-md-3 offset-md-1">
+
+            <figure>
+                <a href="#"><img src="@library.BlobID" alt="Adam Małysz"></a>
+                <figcaption>@library.Title</figcaption>
+                <a asp-controller="Home" asp-action="ItemByMediaType" asp-route-id="@library.TypeofMedia">@library.TypeofMedia</a>
+            </figure>
+
+        </div>
+
+
+    }
+
+}
+
